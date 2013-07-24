@@ -10,11 +10,23 @@ class Grill
   end
 
   def grill
-    "Grilling the #{food.type || food}!"
+    "Grilling the #{food.type}!"
   end
 
   def grill_proc
     "Grilling the #{food}!"
+  end
+end
+
+class Food
+  def type
+    raise NotImplementedError, 'Ask the subclass'
+  end
+end
+
+class HotDog < Food
+  def type
+    'hotdog'
   end
 end
 

@@ -10,7 +10,7 @@ class Grill
   end
 
   def grill
-    "Grilling the #{@food.type}!"
+    "Grilling the #{food.type}!"
   end
 end
 
@@ -22,7 +22,7 @@ end
 
 class HotDog < Food
   def type
-    'hot dogs'
+    'hotdog'
   end
 end
 
