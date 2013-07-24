@@ -10,11 +10,17 @@ class Grill
   end
 
   def grill
-    "Grilling the #{food.type}!"
+    "Grilling the #{print_food}!"
   end
 
-  def grill_proc
-    "Grilling the #{food}!"
+  private
+
+  def print_food
+    is_string?(food) ? food : food.type
+  end
+
+  def is_string? item
+    item.is_a? String
   end
 end
 
