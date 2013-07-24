@@ -16,11 +16,11 @@ class Grill
   private
 
   def print_food
-    is_string?(food) ? food : food.type
+    food_is_string? ? food : food.type
   end
 
-  def is_string? item
-    item.is_a? String
+  def food_is_string?
+    food.is_a? String
   end
 end
 
