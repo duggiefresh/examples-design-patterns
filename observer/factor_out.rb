@@ -1,5 +1,5 @@
 # we will inherit from the Subject class
-class Subject
+module Subject
   attr_reader :observers
 
   def initialize
@@ -24,7 +24,8 @@ class Subject
 end
 
 # class Employee is the 'subject' class
-class Employee < Subject
+class Employee
+  include Subject
   attr_reader :name
   attr_accessor :title, :salary
 
