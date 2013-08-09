@@ -1,18 +1,9 @@
-# class Employee is the 'subject' class
-class Employee
-  attr_reader :name, :observers
-  attr_accessor :title, :salary
+# we will inherit from the Subject class
+class Subject
+  attr_reader :observers
 
-  def initialize name, title, salary
-    @name = name
-    @title = title
-    @salary = salary
+  def initialize
     @observers = []
-  end
-
-  def salary=(new_salary)
-    @salary = new_salary
-    notify_observers
   end
 
   def notify_observers
@@ -29,6 +20,24 @@ class Employee
 
   def delete_observer observer
     @observers.delete observer
+  end
+end
+
+# class Employee is the 'subject' class
+class Employee < Subject
+  attr_reader :name
+  attr_accessor :title, :salary
+
+  def initialize name, title, salary
+    super()
+    @name = name
+    @title = title
+    @salary = salary
+  end
+
+  def salary=(new_salary)
+    @salary = new_salary
+    notify_observers
   end
 end
 
