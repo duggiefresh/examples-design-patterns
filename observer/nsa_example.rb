@@ -11,24 +11,11 @@ module Email
   end
 end
 
-class Snooper
-  def update person
-    puts "!!! ALERT NEW EMAIL !!!"
-    puts "#{person.name} sent an email"
-  end
-end
+module Subject
+  attr_reader :observers
 
-class Person
-  include Email
-  attr_reader :name, :observers
-  def initialize name
-    @name = name
+  def initialize
     @observers = []
-  end
-
-  def create_email subject, receiver
-    Email.send subject, name, receiver
-    notify_observers
   end
 
   def add_observer *observers
@@ -41,11 +28,38 @@ class Person
 
   def notify_observers
     observers.each do |observer|
-      observer.update self
+      observer.gotcha self
     end
   end
 
   def delete_observer observer
     observers.delete observer
+  end
+end
+
+class Snooper
+  def gotcha person
+    puts %[!!! ALERT: #{person.name.upcase} SENT AN EMAILL !!!]
+  end
+end
+
+class Agent
+  def gotcha person
+    puts "Time to detain #{person.name}!"
+  end
+end
+
+class Person
+  include Email, Subject
+  attr_reader :name, :observers
+
+  def initialize name
+    super()
+    @name = name
+  end
+
+  def create_email subject, receiver
+    Email.send subject, name, receiver
+    notify_observers
   end
 end
