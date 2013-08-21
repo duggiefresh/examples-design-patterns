@@ -24,16 +24,16 @@ module Subject
     end
   end
 
+  def delete_observer *observers
+    observers.each { |observer| @observers.delete observer }
+  end
+
   private
 
   def notify_observers
     observers.each do |observer|
       observer.gotcha self
     end
-  end
-
-  def delete_observer observer
-    observers.delete observer
   end
 end
 
