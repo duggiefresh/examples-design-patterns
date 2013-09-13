@@ -1,7 +1,7 @@
 module Email
   extend self
 
-  def send subject, sender, receiver
+  def create_email subject, sender, receiver
     puts %Q[
       Subject: #{subject}
       From:    #{sender}@example.com
@@ -19,33 +19,29 @@ module Subject
   end
 
   def add_observer *observers
-    observers.each do |observer|
-      @observers << observer
-    end
+    observers.each { |observer| @observers << observer }
+  end
+
+  def delete_observer *observers
+    observers.each { |observer| @observers.delete observer }
   end
 
   private
 
   def notify_observers
-    observers.each do |observer|
-      observer.gotcha self
-    end
-  end
-
-  def delete_observer observer
-    observers.delete observer
+    observers.each { |observer| observer.gotcha self }
   end
 end
 
-class Snooper
+class Alert
   def gotcha person
-    puts %[!!! ALERT: #{person.name.upcase} SENT AN EMAILL !!!]
+    puts %[!!! ALERT: #{person.name.upcase} SENT AN EMAIL !!!]
   end
 end
 
 class Agent
   def gotcha person
-    puts "Time to detain #{person.name}!"
+    puts "TIME TO DETAIN #{person.name.upcase}!"
   end
 end
 
@@ -58,8 +54,8 @@ class Person
     @name = name
   end
 
-  def create_email subject, receiver
-    Email.send subject, name, receiver
+  def send_email subject, receiver
+    Email.create_email subject, name, receiver
     notify_observers
   end
 end

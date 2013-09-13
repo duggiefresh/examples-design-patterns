@@ -15,20 +15,22 @@ class Employee
     notify_observers
   end
 
-  def notify_observers
-    @observers.each do |observer|
-      observer.update(self)
-    end
-  end
-
   def add_observer *observers
     observers.each do |observer|
-      @observers << observer
+      observers << observer
     end
   end
 
-  def delete_observer observer
-    @observers.delete observer
+  def delete_observer *observers
+    observers.each { |observer| @observers.delete observer }
+  end
+
+  private
+
+  def notify_observers
+    observers.each do |observer|
+      observer.update(self)
+    end
   end
 end
 
