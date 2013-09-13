@@ -26,6 +26,10 @@ module Subject
     observers.each { |observer| @observers.delete observer }
   end
 
+  def delete_observer *observers
+    observers.each { |observer| @observers.delete observer }
+  end
+
   private
 
   def notify_observers
