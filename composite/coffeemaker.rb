@@ -10,7 +10,7 @@ class MorningRoutine
   end
 end
 
-class GrindCoffee
+class GrindCoffee < MorningRoutine
   def initialize
     super('Grinding some coffee!')
   end
@@ -20,7 +20,7 @@ class GrindCoffee
   end
 end
 
-class BoilWater
+class BoilWater < MorningRoutine
   def initialize
     super('Boiling some water!')
   end
