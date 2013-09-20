@@ -5,7 +5,7 @@ class MorningRoutine
     @name = name
   end
 
-  def get_required_time
+  def time_required
     0.0
   end
 end
@@ -15,7 +15,7 @@ class GrindCoffee < MorningRoutine
     super('Grinding some coffee!')
   end
 
-  def get_required_time
+  def time_required
     0.5
   end
 end
@@ -25,7 +25,7 @@ class BoilWater < MorningRoutine
     super('Boiling some water!')
   end
 
-  def get_required_time
+  def time_required
     4.0
   end
 end
