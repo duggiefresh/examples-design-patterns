@@ -1,4 +1,4 @@
-class CoffeeMaker
+class MorningRoutine
   attr_reader :name
 
   def initialize(name)
