@@ -1,8 +1,8 @@
 class CoffeeRoutine
-  attr_reader :name
+  attr_reader :task
 
-  def initialize(name)
-    @name = name
+  def initialize(task)
+    @task = task
   end
 
   def time
@@ -41,23 +41,24 @@ class AddCoffee < CoffeeRoutine
 end
 
 class CompositeTasks < CoffeeRoutine
-  attr_reader :tasks
+  attr_reader :task, :steps
 
-  def initialize(name)
-    @tasks = []
+  def initialize(task)
+    @task = task
+    @steps = []
   end
 
-  def add_sub_task(task)
-    tasks << task
+  def add_step(step)
+    steps << step
   end
 
-  def remove_sub_task(task)
-    tasks.delete(task)
+  def remove_step(task)
+    steps.delete step
   end
 
   def time_required
     total_time = 0.0
-    tasks.each { |task| total_time += task.time }
+    steps.each { |step| total_time += step.time }
     total_time
   end
 end
@@ -65,9 +66,9 @@ end
 class FrenchPress < CompositeTasks
   def initialize
     super 'Using the FrenchPress to make coffee!!!'
-    add_sub_task GrindCoffee.new
-    add_sub_task BoilWater.new
-    add_sub_task AddCoffee.new
+    add_step GrindCoffee.new
+    add_step BoilWater.new
+    add_step AddCoffee.new
     # ... Omitted actual steps to make coffee from a French press ...
     # ... Imagine PressPlunger class has been defined already ...
     #add_sub_task PressPlunger.new
@@ -77,10 +78,10 @@ end
 class DripMaker < CompositeTasks
   def initialize
     super 'Using the DripMaker to make coffee!!!'
-    add_sub_task GrindCoffee.new
-    add_sub_task BoilWater
-    add_sub_task AddCoffee.new
+    add_step GrindCoffee.new
+    add_step BoilWater
+    add_step AddCoffee.new
     # ... Imagine PressStartButton class has been defined already ...
-    add_sub_task PressStartButton.new
+    add_step PressStartButton.new
   end
 end
