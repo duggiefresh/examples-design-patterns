@@ -1,18 +1,24 @@
 # Football example
 
 class Player
-  attr_reader :action, :source, :perform
+  attr_reader :action
 
   def initialize(action)
     @action = action
   end
 
   def execute
-    # Find me in the child classes
+    file = File.open path, 'a'
+    file.write "#{name}: #{play}\n"
+    file.close
+  end
+
+  def name
+    self.class
   end
 end
 
-class CompositeCommand < Player
+class Coach < Player
   attr_accessor :commands
 
   def initialize
@@ -23,45 +29,23 @@ class CompositeCommand < Player
     commands << command
   end
 
-  def execute
+  def play_call
     commands.each { |command| command.execute }
-  end
-
-  def description
-    description = ''
-    commands.each { |command| description += command.description + "\n"}
-    description
   end
 end
 
 class Quarterback < Player
-  attr_reader :path, :play
-
   def initialize(path, play)
     super 'Hut! Hut! Red 19! Red 19! Hut! Hike!'
     @path = path
     @play = play
   end
-
-  def execute
-    file = File.open path, 'w'
-    file.write "#{self}: #{play}\n"
-    file.close
-  end
 end
 
 class Receiver < Player
-  attr_reader :source, :play
-
-  def initialize(source, play)
+  def initialize(path, play)
     super 'Run, run, run!!!'
-    @source = source
+    @path = path
     @play = play
-  end
-
-  def execute
-    file = File.open source, 'a'
-    file.write "#{self}: #{play}\n"
-    file.close
   end
 end
