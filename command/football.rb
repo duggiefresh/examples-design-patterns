@@ -20,8 +20,8 @@ class CompositeCommand < FootballPosition
     @commands = []
   end
 
-  def add_command(command)
-    commands << command
+  def add_command(*args)
+    args.each { |arg| commands << arg }
   end
 
   def execute
@@ -62,12 +62,19 @@ end
 class TeamOwner < FootballPosition
   attr_reader :path, :target
   def initialize(path, target)
-    super "We are moving the team from #{path} to #{target}!"
+    super "We are moving the team from #{pretty_path path} to #{pretty_path target}!"
     @path = path
     @target = target
   end
 
   def execute
     FileUtils.mv path, target
+    file = File.open target, 'a'
+    file.write "#{name}: I moved the team from #{pretty_path path} to #{pretty_path target}!"
+    file.close
+  end
+
+  def pretty_path(pathname)
+    (pathname.chomp(File.extname(pathname))).capitalize
   end
 end
